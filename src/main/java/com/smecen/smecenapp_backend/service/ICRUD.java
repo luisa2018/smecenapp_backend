@@ -3,9 +3,9 @@ package com.smecen.smecenapp_backend.service;
 import java.util.List;
 
 public interface ICRUD <T, ID>{
-    T registrar(T j)  throws Exception;
-    T modifcar(T j) throws Exception;
-    List<T> listar() throws Exception;
-    T listarPorId(ID id)  throws Exception;
-    void eliminar(ID id)  throws Exception;
+    T register(T t)  throws Exception;
+    T update(T t) throws Exception;
+    List<T> list() throws Exception;
+    T listToId(ID id)  throws Exception;
+    void delete(ID id)  throws Exception;
 }

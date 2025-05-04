@@ -17,7 +17,7 @@ public class JourneyController {
     private IJourneyService service;
     @PostMapping
     public Journey registrar(@RequestBody Journey j) throws Exception{
-        return service.registrar(j);
+        return service.register(j);
     }
 
 
