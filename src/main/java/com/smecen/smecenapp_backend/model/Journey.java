@@ -2,11 +2,15 @@ package com.smecen.smecenapp_backend.model;
 
 import com.smecen.smecenapp_backend.enums.JourneyStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.time.Instant;
+import lombok.NoArgsConstructor;
 
-@Entity
+import java.time.Instant;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "journeys")
 public class Journey {
 
@@ -18,7 +22,7 @@ public class Journey {
 
     @Column(name = "description",nullable = false, length = 200)
     private String description;
-    @Column(name = "context",nullable = false, length = 200)
+    @Column(name = "context",nullable = true, length = 200)
     private String context;
 
     @Enumerated(EnumType.STRING)
