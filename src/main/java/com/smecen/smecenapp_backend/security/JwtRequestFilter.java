@@ -32,14 +32,22 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
+        // Validación del header y extracción del token
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+            try {
+                username = jwtUtil.extractUsername(jwt);
+            } catch (Exception e) {
+                // Token inválido o mal formado
+                logger.warn("JWT token parsing error: " + e.getMessage());
+            }
         }
 
+        // Autenticación solo si no hay ya una en el contexto
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var userDetails = userDetailsService.loadUserByUsername(username);
-            if (jwtUtil.isTokenValid(jwt, userDetails.getUsername())) {
+
+            if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
                 var authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
@@ -48,6 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
 
+        // Continuar con la cadena de filtros
         chain.doFilter(request, response);
     }
 }

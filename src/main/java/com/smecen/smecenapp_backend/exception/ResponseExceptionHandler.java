@@ -35,4 +35,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse er = new ExceptionResponse(LocalDateTime.now(), mensaje, request.getDescription(false));
         return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<ExceptionResponse> manejarAuthException(AuthException ex, WebRequest request) {
+        ExceptionResponse er = new ExceptionResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(er, HttpStatus.UNAUTHORIZED);
+    }
 }
