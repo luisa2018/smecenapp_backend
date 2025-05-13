@@ -1,32 +1,29 @@
-package com.smecen.smecenapp_backend.model;
+package com.smecen.smecenapp_backend.dto;
 
 import com.smecen.smecenapp_backend.enums.JourneyStatus;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
-@Entity
-@Table(name = "journeys")
-public class Journey {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class JourneyDTO {
     private Integer idJourney;
-    @Column(name = "name",nullable = false, length = 150)
     private String name;
-
-    @Column(name = "description",nullable = false, length = 200)
     private String description;
-    @Column(name = "context",nullable = true, length = 200)
     private String context;
-
-    @Enumerated(EnumType.STRING)
     private JourneyStatus status;
-    private Instant createdAt;
-    private Instant updatedAt;
+    private String createdAt;
+    private String updatedAt;
+
+    public JourneyDTO() {
+    }
+
+    public JourneyDTO(Integer idJourney, String name, String description, String context,
+                      JourneyStatus status, String createdAt, String updatedAt) {
+        this.idJourney = idJourney;
+        this.name = name;
+        this.description = description;
+        this.context = context;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getIdJourney() {
         return idJourney;
@@ -68,19 +65,19 @@ public class Journey {
         this.status = status;
     }
 
-    public Instant getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Instant getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
