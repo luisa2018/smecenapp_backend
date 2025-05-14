@@ -2,9 +2,6 @@ package com.smecen.smecenapp_backend.model;
 
 import com.smecen.smecenapp_backend.enums.JourneyStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -15,6 +12,8 @@ public class Journey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idJourney;
+
+
     @Column(name = "name",nullable = false, length = 150)
     private String name;
 
