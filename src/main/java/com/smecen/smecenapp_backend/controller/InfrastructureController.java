@@ -5,6 +5,7 @@ import com.smecen.smecenapp_backend.model.Infrastructure;
 import com.smecen.smecenapp_backend.model.Journey;
 import com.smecen.smecenapp_backend.service.IInfrastructureService;
 import com.smecen.smecenapp_backend.service.IJourneyService;
+import com.smecen.smecenapp_backend.service.impl.RecommendationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class InfrastructureController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private RecommendationService recommendationService;
 
     @PostMapping
     public InfrastructureDTO register(@RequestBody InfrastructureDTO dto) throws Exception {
@@ -99,6 +103,12 @@ public class InfrastructureController {
         }
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/recommendations")
+    public ResponseEntity<List<String>> generarRecomendaciones(@RequestBody InfrastructureDTO dto) {
+        List<String> recomendaciones = recommendationService.generarRecomendaciones(dto);
+        return ResponseEntity.ok(recomendaciones);
     }
 
 }
